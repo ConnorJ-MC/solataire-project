@@ -1,0 +1,31 @@
+﻿<Window x:Class="DraggableLabelDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Draggable Label" Height="780" Width="1280">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Recources/Untitled 2.png"
+                        TileMode="Tile"
+                        Viewport="0,0,45,45" 
+                        ViewportUnits="Absolute"
+                        Stretch="Fill" Viewbox="0,0,1,1" ViewboxUnits="RelativeToBoundingBox">
+            </ImageBrush>
+        </Grid.Background>
+
+        <Canvas Height="680" Width="1260" Name="MainCanvas" Background="Transparent">
+            <Label x:Name="MyLabel"
+                   Content="Drag Me"
+                   Background="LightBlue"
+                   Padding="10"
+                   Canvas.Left="200"
+                   Canvas.Top="89"
+                   MouseDown="Label_MouseDown"
+                   MouseMove="Label_MouseMove"
+                   MouseUp="Label_MouseUp"
+                   BorderBrush="DarkBlue"
+                   BorderThickness="1"
+                   FontWeight="Bold"/>
+            <DatePicker Canvas.Left="90" Canvas.Top="208"/>
+        </Canvas>
+    </Grid>
+</Window>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36930.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "solataire test stuff", "solataire test stuff.csproj", "{9430227A-5091-4335-A700-4D958B557944}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireBack", "..\SolitaireBack\SolitaireBack.csproj", "{1C5AF928-71EB-4D71-8817-F14454E17E27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9430227A-5091-4335-A700-4D958B557944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9430227A-5091-4335-A700-4D958B557944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9430227A-5091-4335-A700-4D958B557944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9430227A-5091-4335-A700-4D958B557944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B3153B30-D0FE-454D-86AF-940AA95E5322}
+	EndGlobalSection
+EndGlobal
