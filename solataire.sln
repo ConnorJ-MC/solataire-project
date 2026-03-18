@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "solataire test stuff", "sol
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireBack", "..\SolitaireBack\SolitaireBack.csproj", "{1C5AF928-71EB-4D71-8817-F14454E17E27}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireFront", "..\SolitaireFront\SolitaireFront.csproj", "{63E26728-F691-4E64-B742-75D44F497801}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63E26728-F691-4E64-B742-75D44F497801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63E26728-F691-4E64-B742-75D44F497801}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63E26728-F691-4E64-B742-75D44F497801}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63E26728-F691-4E64-B742-75D44F497801}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
