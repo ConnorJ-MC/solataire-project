@@ -36,7 +36,7 @@ namespace SolitaireFront
             if (DataContext is Page1ViewModel viewModel)
             {
                 viewModel.ResetGame();
-                viewModel.Refresh();
+                NavigationService.Navigate(new Login());
             }
         }
     }

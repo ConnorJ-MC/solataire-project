@@ -29,7 +29,7 @@ namespace SolitaireFront
         public Login()
         {
             InitializeComponent();
-            loginManager = new LoginManager();
+            loginManager = LoginManager.Instance;
             loginManager.loadAllPlayersFromJSON();
         }
 
@@ -60,7 +60,7 @@ namespace SolitaireFront
 
         private String VegasTXT()
         {
-            cb_VegasMode.IsEnabled = isAdult && !loginManager.isGuest;
+            cb_VegasMode.IsEnabled = isAdult && !guest;
 
             if (guest)
             {
@@ -78,7 +78,7 @@ namespace SolitaireFront
         private void UpdateVegasUI()
         {
             cb_VegasMode.Content = VegasTXT();
-            cb_VegasMode.IsEnabled = isAdult || !guest;
+            cb_VegasMode.IsEnabled = isAdult && !guest;
             if (cb_VegasMode.IsChecked == true && !cb_VegasMode.IsEnabled)
             {
                 cb_VegasMode.IsChecked = false;
@@ -98,17 +98,46 @@ namespace SolitaireFront
 
         private void btn_Start_Click(object sender, RoutedEventArgs e)
         {
-            
+
             var first = txtbx_firstN.Text?.Trim() ?? string.Empty;
             var last = txtbx_secondN.Text?.Trim() ?? string.Empty;
-            var dob = dp_DateOfBirth.SelectedDate; 
+            var dob = dp_DateOfBirth.SelectedDate;
             if ((string.IsNullOrEmpty(first) || string.IsNullOrEmpty(last) || dp_DateOfBirth.SelectedDate is not DateTime) && !guest)
             {
                 MessageBox.Show("Please fill in all fields.", "invalid feilds", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
-            loginManager.LoadPlayerData(first, last, selectedDate);
+            if (combo_Difficulty.SelectedItem == null)
+            {
+                MessageBox.Show("Please select a difficulty", "unselected difficulty", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (cb_VegasMode.IsChecked == true)
+            {
+                var result = MessageBox.Show(
+                    "Vegas Mode simulated gambling and deducts virtual money from your balance.\n\n" +
+                    "If you feel gambling may be harmful or you want support, visit BeGambleAware.\n\n" +
+                    "Do you want to continue?",
+                    "Vegas Mode Warning",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.No)
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = "https://www.begambleaware.org",
+                        UseShellExecute = true
+                    });
+
+                    return;
+                }
+            }
+            ;
+
+            loginManager.currentPlayer = loginManager.LoadPlayerData(first, last, selectedDate);
 
             var GameManager = new GameManager();
 

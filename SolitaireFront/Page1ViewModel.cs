@@ -21,7 +21,6 @@ namespace SolitaireFront
         public Page1ViewModel(GameManager gm)
         {
             Game = gm;
-            Game.StartGame();
 
             Stock = new PileViewModel(Game.Stock);
             Waste = new PileViewModel(Game.Waste);
@@ -60,7 +59,6 @@ namespace SolitaireFront
         public void ResetGame()
         {
             Game.resetGame();
-            Game.StartGame();
             Refresh();
         }
 

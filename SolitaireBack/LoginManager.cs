@@ -36,13 +36,13 @@ namespace SolitaireBack
         private List<Player> players = new List<Player>();
         public IReadOnlyList<Player> Players => players.AsReadOnly();
         public Player currentPlayer;
-        private String tempNewFName;
-        private String tempNewLName;
-        private DateOnly tempNewDOB;
-        private int newBalance;
-        private int newGamesP;
-        private int newGamesW;
-        private int newGamesL;
+        //private String tempNewFName;
+        //private String tempNewLName;
+        //private DateOnly tempNewDOB;
+        //private int newBalance;
+        //private int newGamesP;
+        //private int newGamesW;
+        //private int newGamesL;
 
         public bool isGuest { get; set; }
 
@@ -151,6 +151,14 @@ namespace SolitaireBack
         {
             if (isGuest)
             {
+                currentPlayer = new Player("Guest", "Player", DateOnly.MinValue, 0)
+                {
+                    balance = 0,
+                    gamesP = 0,
+                    gamesW = 0,
+                    gamesL = 0
+                };
+
                 return currentPlayer; // Guest mode doesn't load from JSON.
             }
 
