@@ -1,0 +1,17 @@
+﻿<Window x:Class="SolitaireFront.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Solitaire" Height="894" Width="1276">
+
+    <Frame x:Name="MainFrame"
+           NavigationUIVisibility="Hidden" >
+        <Frame.Background>
+            <ImageBrush ImageSource="/Recources/Untitled 2.png"
+            TileMode="Tile"
+            Viewport="0,0,45,45" 
+            ViewportUnits="Absolute"
+            Stretch="Fill" Viewbox="0,0,1,1" ViewboxUnits="RelativeToBoundingBox">
+            </ImageBrush>
+        </Frame.Background>
+    </Frame>
+</Window>
