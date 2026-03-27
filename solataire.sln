@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36930.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "solataire test stuff", ".\SolataireTest\solataire test stuff.csproj", "{9430227A-5091-4335-A700-4D958B557944}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireBack", "SolitaireBack\SolitaireBack.csproj", "{C2C13FA2-4EA2-390B-4A10-DEE6DE4FD726}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireBack", ".\SolitaireBack\SolitaireBack.csproj", "{1C5AF928-71EB-4D71-8817-F14454E17E27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireFront", "SolitaireFront\SolitaireFront.csproj", "{0F773DAE-BDDA-46CD-4121-8482CA73C658}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolitaireFront", ".\SolitaireFront\SolitaireFront.csproj", "{63E26728-F691-4E64-B742-75D44F497801}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "solataire test stuff", "SolataireTest\solataire test stuff.csproj", "{2BCE70FD-C557-BA27-FAF4-13513DC53BE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +20,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9430227A-5091-4335-A700-4D958B557944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9430227A-5091-4335-A700-4D958B557944}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9430227A-5091-4335-A700-4D958B557944}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9430227A-5091-4335-A700-4D958B557944}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1C5AF928-71EB-4D71-8817-F14454E17E27}.Release|Any CPU.Build.0 = Release|Any CPU
-		{63E26728-F691-4E64-B742-75D44F497801}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63E26728-F691-4E64-B742-75D44F497801}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63E26728-F691-4E64-B742-75D44F497801}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63E26728-F691-4E64-B742-75D44F497801}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2C13FA2-4EA2-390B-4A10-DEE6DE4FD726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2C13FA2-4EA2-390B-4A10-DEE6DE4FD726}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2C13FA2-4EA2-390B-4A10-DEE6DE4FD726}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2C13FA2-4EA2-390B-4A10-DEE6DE4FD726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F773DAE-BDDA-46CD-4121-8482CA73C658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F773DAE-BDDA-46CD-4121-8482CA73C658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F773DAE-BDDA-46CD-4121-8482CA73C658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F773DAE-BDDA-46CD-4121-8482CA73C658}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2BCE70FD-C557-BA27-FAF4-13513DC53BE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCE70FD-C557-BA27-FAF4-13513DC53BE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BCE70FD-C557-BA27-FAF4-13513DC53BE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BCE70FD-C557-BA27-FAF4-13513DC53BE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
