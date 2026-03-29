@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SolitaireBack
 {
@@ -14,13 +11,30 @@ namespace SolitaireBack
         clubs
     }
 
-    public class Card
+    public class Card : INotifyPropertyChanged
     {
         public Suit suit { get; }
 
         public int rank { get; }
 
-        public string TextureName => $"card-{suit}-{rank}";
+        //#1
+        private bool _isTopCard;
+        //public string TextureName => $"card-{suit}-{rank}";
+        public string ImagePath => $"/Recources/Playing Cards/card-{suit}-{rank}.png";
+        // The UI can bind to this to know if it should trigger the flip animation
+        public double CurrentAngle => isFaceUp ? 0 : 180;
+        public bool IsTopCard
+        {
+            get => _isTopCard;
+            set { _isTopCard = value; OnPropertyChanged(); }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+
 
         public static string BackTextureName => "card-back2";
 

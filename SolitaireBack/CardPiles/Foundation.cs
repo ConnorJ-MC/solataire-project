@@ -29,7 +29,7 @@ namespace SolitaireBack.CardPiles
             {
                 return c.rank == 1;
             }
-            return c.rank == cards.Last().rank + 1;
+            return c.rank == Cards.Last().rank + 1;
         }
     }
 }

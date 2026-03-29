@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SolitaireBack
 {
-    public class CardPile
+    public class CardPile : INotifyPropertyChanged
     {
-        public List<Card> cards = new List<Card>();
+        //#1
+        public ObservableCollection<Card> Cards { get; set; } = new ObservableCollection<Card>();
+        public Card TopCard => Cards.Count > 0 ? Cards[Cards.Count - 1] : null;
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
-        
         public bool addCard(Card card)
         {
             if (card == null)
@@ -19,14 +23,24 @@ namespace SolitaireBack
             }
 
             // Prevent adding the exact same card instance twice.
-            if (cards.Contains(card))
+            if (Cards.Contains(card))
             {
                 return false;
             }
 
             try
             {
-                cards.Add(card);
+                // Set the old top card to false
+                if (Cards.Count > 0) {
+                    Cards.Last().IsTopCard = false;
+                }
+
+                Cards.Add(card);
+
+                // Set the new top card to true
+                card.IsTopCard = true;
+
+                OnPropertyChanged(nameof(TopCard));
                 return true;
             }
             catch
@@ -43,7 +57,7 @@ namespace SolitaireBack
                 return false;
             }
 
-            int index = cards.IndexOf(card);
+            int index = Cards.IndexOf(card);
             if (index == -1)
             {
                 // Card not found in pile.
@@ -51,14 +65,14 @@ namespace SolitaireBack
             }
 
             // Only allow removing if the specified card is the top card.
-            if (index != cards.Count - 1)
+            if (index != Cards.Count - 1)
             {
                 return false;
             }
 
             try
             {
-                cards.RemoveAt(index);
+                Cards.RemoveAt(index);
                 return true;
             }
             catch
@@ -82,14 +96,18 @@ namespace SolitaireBack
             }
 
             // Prevent adding any card instance that's already present in this pile.
-            if (stack.Any(c => cards.Contains(c)))
+            if (stack.Any(c => Cards.Contains(c)))
             {
                 return false;
             }
 
             try
             {
-                cards.AddRange(stack);
+                //#1 cards.AddRange(stack);
+                foreach (Card card in stack)
+                {
+                    Cards.Add(card);
+                }
                 return true;
             }
             catch
@@ -101,20 +119,25 @@ namespace SolitaireBack
 
         public List<Card> removeStack(Card card)
         {
-            int index = cards.IndexOf(card);
+            int index = Cards.IndexOf(card);
             if (index == -1)
                 throw new ArgumentException("Card not found in pile.");
-            List<Card> stack = cards.GetRange(index, cards.Count - index);
-            cards.RemoveRange(index, cards.Count - index);
+            //#1 List<Card> stack = cards.GetRange(index, cards.Count - index);
+            List<Card> stack = Cards.Skip(index).ToList();
+            while (Cards.Count > index)
+            {
+                Cards.RemoveAt(index);
+            }
+            //#1 cards.RemoveRange(index, cards.Count - index);
             return stack;
         }
 
         public Card peakTop()
         {
-            if (cards.Count == 0)
+            if (Cards.Count == 0)
                 throw new InvalidOperationException("Cannot peak top card of an empty pile.");
 
-            Card top = cards[cards.Count - 1];
+            Card top = Cards[Cards.Count - 1];
 
             // Flip the top card if it's currently face-down, then return it.
             if (!top.isFaceUp)
@@ -127,17 +150,19 @@ namespace SolitaireBack
 
         public List<Card> getStackFrom(Card c)
         {
-            int index = cards.IndexOf(c);
-            if (index == -1 || cards[index].isFaceUp == false)
+            int index = Cards.IndexOf(c);
+            if (index == -1 || Cards[index].isFaceUp == false)
             {
                 return null;
             }
-            return cards.GetRange(index, cards.Count - index);
+            // #1return cards.GetRange(index, cards.Count - index);
+            return Cards.Skip(index).ToList();
+            
         }
 
-        public bool isEmpty() => cards.Count == 0;
+        public bool isEmpty() => Cards.Count == 0;
 
-        public bool contains(Card card) => cards.Contains(card);
+        public bool contains(Card card) => Cards.Contains(card);
 
         public bool canAccept(Card card) => true; // Base CardPile has no restrictions, override in subclasses as needed.
     }

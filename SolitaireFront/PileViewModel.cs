@@ -1,10 +1,5 @@
 ﻿using SolitaireBack;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SolitaireFront
 {
@@ -17,14 +12,14 @@ namespace SolitaireFront
         {
             Model = model;
             Cards = new ObservableCollection<CardViewModel
-                >(model.cards.Select(c => new CardViewModel(c))
+                >(model.Cards.Select(c => new CardViewModel(c))
             );
         }
 
         public void Refresh()
         {
             Cards.Clear();
-            foreach (var card in Model.cards)
+            foreach (var card in Model.Cards)
             {
                 Cards.Add(new CardViewModel(card));
             }

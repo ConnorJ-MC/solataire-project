@@ -1,9 +1,4 @@
 ﻿using SolitaireBack.CardPiles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SolitaireBack
 {
@@ -18,7 +13,9 @@ namespace SolitaireBack
 
         private LoginManager login;
 
-        public GameManager()
+        //#1 Make the GameManager a singleton so that everyone is working on the same game instance.
+        public static GameManager Instance { get; } = new GameManager();
+        private GameManager()
         {
             login = LoginManager.Instance;
         }
@@ -136,11 +133,11 @@ namespace SolitaireBack
         {
             foreach (Foundation f in foundations)
             {
-                if (f.cards.Count != 13) return false;
+                if (f.Cards.Count != 13) return false;
 
                 for (int i = 0; i < 13; i++)
                 {
-                    Card card = f.cards[i];
+                    Card card = f.Cards[i];
 
                     if (card.rank != i + 1) return false;
                     if (card.suit != f.suit) return false;

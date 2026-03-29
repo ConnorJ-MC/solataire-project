@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SolitaireBack.CardPiles
+﻿namespace SolitaireBack.CardPiles
 {
     public class Tableau : CardPile
     {
@@ -18,7 +12,7 @@ namespace SolitaireBack.CardPiles
             {
                 return c.rank == 13;
             }
-            Card topCard = cards.Last();
+            Card topCard = Cards.Last();
             if (topCard.isFaceUp == false)
             {
                 return false;
@@ -32,26 +26,17 @@ namespace SolitaireBack.CardPiles
 
         public bool removeStack(List<Card> stack)
         {
-            if (stack == null || stack.Count == 0)
+            if (stack == null || stack.Count == 0) return false;
+
+            // Use a safer removal loop
+            int startIndex = Cards.Count - stack.Count;
+            while (Cards.Count > startIndex)
             {
-                return false;
+                Cards.RemoveAt(startIndex);
             }
-            for (int i = 0; i < stack.Count; i++)
-            {
-                if (stack[i] != cards[cards.Count - stack.Count + i])
-                {
-                    return false;
-                }
-            }
-            try
-            {
-                cards.RemoveRange(cards.Count - stack.Count, stack.Count);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+
+            OnPropertyChanged(nameof(TopCard)); // Update the visual top card
+            return true;
         }
 
         

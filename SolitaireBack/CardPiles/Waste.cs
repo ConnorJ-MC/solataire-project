@@ -18,13 +18,13 @@ namespace SolitaireBack.CardPiles
             {
                 return null;
             }
-            return cards[cards.Count - 1];
+            return Cards[Cards.Count - 1];
         }
 
         public List<Card> reset()
         {
-            List<Card> cardsToReturn = new List<Card>(cards);
-            cards.Clear();
+            List<Card> cardsToReturn = new List<Card>(Cards);
+            Cards.Clear();
             return cardsToReturn;
         }
     }

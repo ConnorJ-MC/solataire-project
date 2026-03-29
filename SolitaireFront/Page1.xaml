@@ -47,19 +47,26 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <Image Width="144" Height="216" Source="{Binding Stock.Cards.Count, Converter={StaticResource StockToImageConverter}}"/>
-                    <ItemsControl ItemsSource="{Binding Waste.Cards}">
+                    <local:PlayingCard x:Name="StockVisual" 
+                       Width="144" Height="216"
+                       MouseDown="Stock_MouseDown"
+                       DataContext="{Binding Stock.TopCard}"
+                       FrontImage="/Recources/Playing Cards/card-back2.png"
+                       BackImage="/Recources/Playing Cards/card-back2.png"/>
+
+                    <ItemsControl ItemsSource="{Binding Waste.Cards}" Margin="30,0,0,0">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
+                                <Grid />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding ImagePath}" Width="144" Height="216"/>
+                                <local:PlayingCard Width="144" Height="216" 
+                                   FrontImage="{Binding ImagePath}" 
+                                   BackImage="/Recources/Playing Cards/card-back2.png"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -75,7 +82,32 @@
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding Cards[0].ImagePath}" Width="144" Height="216" Margin="0,0,20,0"/>
+                                <ItemsControl ItemsSource="{Binding Cards}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <Grid />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:PlayingCard Width="144" Height="216" 
+                                           FrontImage="{Binding ImagePath}" 
+                                           BackImage="/Recources/Playing Cards/card-back2.png">
+                                                <local:PlayingCard.Style>
+                                                    <Style TargetType="local:PlayingCard">
+                                                        <Setter Property="IsFaceUp" Value="False"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsTopCard}" Value="True">
+                                                                <Setter Property="IsFaceUp" Value="True"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </local:PlayingCard.Style>
+                                            </local:PlayingCard>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -101,10 +133,10 @@
 
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding ImagePath}"
-                                               Width="144"
-                                               Height="216"
-                                               Margin="0,0,0,-190"/>
+                                        <local:PlayingCard Width="144" Height="216" 
+                           Margin="0,0,0,-190"
+                           FrontImage="{Binding ImagePath}"
+                           BackImage="/Recources/Playing Cards/card-back2.png"/>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

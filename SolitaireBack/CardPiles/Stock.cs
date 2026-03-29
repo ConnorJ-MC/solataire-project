@@ -21,8 +21,8 @@ namespace SolitaireBack.CardPiles
                 {
                     break;
                 }
-                Card card = cards[cards.Count - 1];
-                cards.RemoveAt(cards.Count - 1);
+                Card card = Cards[Cards.Count - 1];
+                Cards.RemoveAt(Cards.Count - 1);
                 drawnCards.Add(card);
             }
 
@@ -40,7 +40,7 @@ namespace SolitaireBack.CardPiles
             foreach (Card card in newCards)
             {
                 card.isFaceUp = false;
-                cards.Add(card);
+                Cards.Add(card);
             }
             return true;
             
