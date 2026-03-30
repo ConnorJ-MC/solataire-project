@@ -38,7 +38,22 @@ namespace SolitaireBack
 
         public static string BackTextureName => "card-back2";
 
-        public bool isFaceUp { get; set; } = false;
+        //public bool isFaceUp { get; set; } = false;
+        private bool _isFaceUp = false;
+        public bool isFaceUp
+        {
+            get => _isFaceUp;
+            set
+            {
+                if (_isFaceUp != value)
+                {
+                    _isFaceUp = value;
+                    OnPropertyChanged();
+                    // Crucial: Tell the UI the angle calculated from this bool has changed
+                    OnPropertyChanged(nameof(CurrentAngle));
+                }
+            }
+        }
 
         public Card(Suit suit, int rank)
         {

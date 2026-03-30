@@ -61,7 +61,7 @@
                         <GeometryModel3D.Transform>
                             <RotateTransform3D>
                                 <RotateTransform3D.Rotation>
-                                    <AxisAngleRotation3D x:Name="CardRotation" Axis="0,1,0" Angle="{Binding Model.CurrentAngle, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                    <AxisAngleRotation3D x:Name="CardRotation" Axis="0,1,0" Angle="180"/>
                                 </RotateTransform3D.Rotation>
                             </RotateTransform3D>
                         </GeometryModel3D.Transform>

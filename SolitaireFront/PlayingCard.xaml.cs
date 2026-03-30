@@ -1,11 +1,11 @@
 ﻿using SolitaireBack;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Effects;
-using System.Windows.Media.Imaging;
 using System.Windows.Media.Media3D;
 
 namespace SolitaireFront
@@ -31,7 +31,7 @@ namespace SolitaireFront
         private bool _isFaceUp = false;
         public bool IsFaceUp { get; set; }
 
-        private static int _globalZIndex = 0;
+        private static int _globalZIndex = 180;
 
         /// <summary>
         /// Need this empty constructor for XAML designer support.
@@ -60,6 +60,24 @@ namespace SolitaireFront
 
             // Synchronise the visual flip state with the backend state
             this._isFaceUp = cardModel.isFaceUp;
+
+            CardRotation.Angle = cardModel.isFaceUp ? 0 : 180;
+
+            // Listen for changes in the backend Model
+            this.Model.PropertyChanged += Model_PropertyChanged;
+
+            /*if (!this._isFaceUp)
+            {
+                CardRotation.Angle = 180;
+            }*/
+        }
+        private void Model_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // If the model says the angle changed, run the animation
+            if (e.PropertyName == nameof(Card.CurrentAngle))
+            {
+                RunFlipAnimation(Model.isFaceUp ? 0 : 180);
+            }
         }
 
         public static readonly DependencyProperty FrontImageProperty =
@@ -133,6 +151,17 @@ namespace SolitaireFront
                     FlipCard();
                 }
             }
+        }
+
+        private void RunFlipAnimation(double targetAngle)
+        {
+            DoubleAnimation flipAnimation = new DoubleAnimation
+            {
+                To = targetAngle,
+                Duration = TimeSpan.FromSeconds(0.5),
+                EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseInOut }
+            };
+            CardRotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, flipAnimation);
         }
 
         private void FlipCard()
