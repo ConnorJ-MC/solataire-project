@@ -96,6 +96,41 @@ namespace SolitaireFront
             loginManager.setVegasMode(false);
         }
 
+        private void howTo(object sender, RoutedEventArgs e) // fill in next timre but should containt a simple how to, info on dificulty, how vegas works, and the goal
+        {
+            MessageBox.Show(
+            "HOW TO PLAY SOLITAIRE\n\n" +
+            "GOAL\n" +
+            "Move all 52 cards into the four Foundation piles (top right), each pile built from Ace up to King in the same suit.\n\n" +
+
+            "THE TABLEAU (the 7 piles on the board)\n" +
+            "• You can place a card onto another card if it is ONE rank lower and the OPPOSITE colour.\n" +
+            "  Example: You can place a red 6 on a black 7.\n" +
+            "• You can move a whole stack if it follows the same descending, alternating‑colour pattern.\n" +
+            "• Only KINGS can be moved into an empty space.\n\n" +
+
+            "THE STOCK & WASTE\n" +
+            "• The Stock is your draw pile.\n" +
+            "• Cards you draw go into the Waste.\n" +
+            "• You can play cards from the Waste onto the Tableau or Foundations.\n\n" +
+
+            "DIFFICULTY\n" +
+            "• Easy: Draw 1 card at a time.\n" +
+            "• Medium: Draw 3 cards at a time.\n\n" +
+
+            "VEGAS MODE\n" +
+            "• Costs 52 credits to start a game.\n" +
+            "• You earn +5 credits for every card you move to a Foundation.\n" +
+            "• You lose -5 credits if you move a card back off a Foundation.\n" +
+            "• Your balance carries over between games.\n\n" +
+
+            "WINNING\n" +
+            "You win when all cards are moved to the Foundations in order from Ace to King.",
+            "How to play Solitaire",
+            MessageBoxButton.OK,
+            MessageBoxImage.Information);
+        }
+
         private void btn_Start_Click(object sender, RoutedEventArgs e)
         {
 
@@ -117,7 +152,7 @@ namespace SolitaireFront
             if (cb_VegasMode.IsChecked == true)
             {
                 var result = MessageBox.Show(
-                    "Vegas Mode simulated gambling and deducts virtual money from your balance.\n\n" +
+                    "Vegas Mode simulates gambling by deducting virtual money from a virtual balance, or adding onto it.\n\n" +
                     "If you feel gambling may be harmful or you want support, visit BeGambleAware.\n\n" +
                     "Do you want to continue?",
                     "Vegas Mode Warning",
