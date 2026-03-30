@@ -169,8 +169,7 @@ namespace SolitaireFront
 
                     return;
                 }
-            }
-            ;
+            };
 
             loginManager.currentPlayer = loginManager.LoadPlayerData(first, last, selectedDate);
 
