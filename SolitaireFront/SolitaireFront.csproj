@@ -39,6 +39,7 @@
     <None Remove="Recources\Playing Cards\card-diamonds-8.png" />
     <None Remove="Recources\Playing Cards\card-diamonds-9.png" />
     <None Remove="Recources\Playing Cards\card-foundation-club.png" />
+    <None Remove="Recources\Playing Cards\card-foundation-default.png" />
     <None Remove="Recources\Playing Cards\card-foundation-diamond.png" />
     <None Remove="Recources\Playing Cards\card-foundation-heart.png" />
     <None Remove="Recources\Playing Cards\card-foundation-spade.png" />
@@ -164,6 +165,9 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Recources\Playing Cards\card-foundation-club.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Recources\Playing Cards\card-foundation-default.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Recources\Playing Cards\card-foundation-diamond.png">

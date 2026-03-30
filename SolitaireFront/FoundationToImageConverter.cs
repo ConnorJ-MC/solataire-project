@@ -14,7 +14,8 @@ namespace SolitaireFront
         {
             var pile = value as IList<CardViewModel>;
             if (pile == null || pile.Count == 0)
-                return "/Recources/Playing Cards/card-blank.png";
+                return "/Recources/Playing Cards/card-foundation-default.png";
+
 
             return pile[pile.Count - 1].ImagePath;
         }
