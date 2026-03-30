@@ -10,6 +10,7 @@
 
     <Page.Resources>
         <local:StockToImageConverter x:Key="StockToImageConverter"/>
+        <local:TableauOffsetConverter x:Key="TableauOffsetConverter"/>
     </Page.Resources>
 
     <Grid>
