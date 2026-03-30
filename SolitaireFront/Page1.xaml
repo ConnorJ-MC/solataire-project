@@ -11,6 +11,7 @@
     <Page.Resources>
         <local:StockToImageConverter x:Key="StockToImageConverter"/>
         <local:TableauOffsetConverter x:Key="TableauOffsetConverter"/>
+        <local:FoundationToImageConverter x:Key="FoundationToImageConverter"/>
     </Page.Resources>
 
     <Grid>
@@ -28,7 +29,7 @@
             </Canvas.Background>
             <Label x:Name="lbl_FuulName" Content="connor mccaig" Height="46" Width="199" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
             <Label Content="WON:" Height="46" Width="78" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="199" FontWeight="Bold"/>
-            <Label Content="#/#" Height="46" Width="74" FontSize="24" Canvas.Left="277" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Label x:Name="lbl_WinRate" Content="#/#" Height="46" Width="74" FontSize="24" Canvas.Left="277" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
             <Label x:Name="lbl_Balance" Content="BALANCE:" Height="46" Width="125" FontSize="24" Canvas.Left="356" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <Label x:Name="lbl_BalanceAmount" Content="£##.##" Height="46" Width="106" FontSize="24" Canvas.Left="481" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <Button x:Name="btn_Reset" Content="RESET" Canvas.Left="608" Canvas.Top="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Height="32" Width="60" Click="btn_Reset_Click"/>
@@ -66,7 +67,7 @@
                     </ItemsControl>
                 </StackPanel>
 
-                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,88,0">
                     <ItemsControl ItemsSource="{Binding Foundations}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -76,9 +77,12 @@
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding Cards[0].ImagePath}" Width="144" Height="216" Margin="0,0,20,0"/>
+                                <Border Width="144" Height="216" Margin="0,0,20,0" Background="Transparent">
+                                    <Image Source="{Binding Cards, Converter={StaticResource FoundationToImageConverter}}" Width="144" Height="216"/>
+                                </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
+
                     </ItemsControl>
                 </StackPanel>
             </Grid>

@@ -174,11 +174,9 @@ namespace SolitaireFront
 
             loginManager.currentPlayer = loginManager.LoadPlayerData(first, last, selectedDate);
 
-            var GameManager = new GameManager();
+            GameManager.Instance.StartGame();
 
-            GameManager.StartGame();
-
-            NavigationService.Navigate(new Page1(GameManager));
+            NavigationService.Navigate(new Page1(GameManager.Instance));
         }
     }
 }

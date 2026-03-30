@@ -14,11 +14,12 @@ namespace SolitaireBack
         private List<Foundation> foundations = new List<Foundation>();
         private Stock stock;
         private Waste waste;
-        private int movesTaken;
+        public int movesTaken;
 
         private LoginManager login;
 
-        public GameManager()
+        public static GameManager Instance { get; } = new GameManager();
+        private GameManager()
         {
             login = LoginManager.Instance;
         }

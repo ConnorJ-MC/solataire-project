@@ -22,13 +22,14 @@ namespace SolitaireFront
     public partial class Page1 : Page
     {
 
-        public Page1() : this(new GameManager())
+        public Page1() : this(GameManager.Instance)
         {
         }
         public Page1(GameManager gm)
         {
             InitializeComponent();
             DataContext = new Page1ViewModel(gm);
+            UpdateTopBar();
         }
 
         private void btn_Reset_Click(object sender, RoutedEventArgs e)
@@ -38,6 +39,30 @@ namespace SolitaireFront
                 viewModel.ResetGame();
                 NavigationService.Navigate(new Login());
             }
+        }
+
+        private void UpdateTopBar()
+        {
+            var lg = LoginManager.Instance;
+            var gm = GameManager.Instance;
+
+            lbl_FuulName.Content = lg.currentPlayer.fName;
+
+            lbl_WinRate.Content = lg.currentPlayer.gamesW + "/" + lg.currentPlayer.gamesP;
+
+            if (lg.gamble)
+            {
+                lbl_Balance.Opacity = 100;
+                lbl_BalanceAmount.Opacity = 100;
+                lbl_BalanceAmount.Content = "£" + lg.currentPlayer.balance;
+            }
+            else
+            {
+                lbl_Balance.Opacity = 0;
+                lbl_BalanceAmount.Opacity = 0;
+            }
+
+            lbl_movesTaken.Content = gm.movesTaken;
         }
     }
 }

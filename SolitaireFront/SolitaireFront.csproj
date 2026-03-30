@@ -38,6 +38,10 @@
     <None Remove="Recources\Playing Cards\card-diamonds-7.png" />
     <None Remove="Recources\Playing Cards\card-diamonds-8.png" />
     <None Remove="Recources\Playing Cards\card-diamonds-9.png" />
+    <None Remove="Recources\Playing Cards\card-foundation-club.png" />
+    <None Remove="Recources\Playing Cards\card-foundation-diamond.png" />
+    <None Remove="Recources\Playing Cards\card-foundation-heart.png" />
+    <None Remove="Recources\Playing Cards\card-foundation-spade.png" />
     <None Remove="Recources\Playing Cards\card-hearts-1.png" />
     <None Remove="Recources\Playing Cards\card-hearts-10.png" />
     <None Remove="Recources\Playing Cards\card-hearts-11.png" />
@@ -157,6 +161,18 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Recources\Playing Cards\card-diamonds-9.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Recources\Playing Cards\card-foundation-club.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Recources\Playing Cards\card-foundation-diamond.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Recources\Playing Cards\card-foundation-heart.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Recources\Playing Cards\card-foundation-spade.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Recources\Playing Cards\card-hearts-1.png">
