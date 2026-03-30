@@ -33,7 +33,6 @@
             <Label Content="Difficulty*" Canvas.Left="10" Canvas.Top="181" Width="106" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
             <CheckBox x:Name="rb_isGuest" Content="or as a guest" Canvas.Left="14" Canvas.Top="151" HorizontalAlignment="Center" VerticalAlignment="Top" Checked="isaGuest" Unchecked="isNotaGuest" ToolTip="won't save anything"/>
             <Label Content="LOGIN" Canvas.Left="10" Canvas.Top="10" Height="38" Width="300" Foreground="White" FontWeight="Bold" FontSize="24" FontStyle="Italic"/>
-            <Button Content="?" Canvas.Left="286" Canvas.Top="10" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="24" FontWeight="Bold" FontStyle="Italic" Click="howTo" Background="#FF749962" BorderBrush="Red" Foreground="Red" BorderThickness="2,2,2,2"/>
         </Canvas>
     </Grid>
 </Page>
