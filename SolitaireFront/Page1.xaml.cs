@@ -13,6 +13,7 @@ namespace SolitaireFront
     /// </summary>
     public partial class Page1 : Page
     {
+
         //#1
         public Page1() : this(GameManager.Instance)
         {
@@ -68,6 +69,7 @@ namespace SolitaireFront
         private void Stock_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var gm = GameManager.Instance;
+            //var lm = LoginManager.Instance;
 
             if (!gm.Stock.isEmpty())
             {
@@ -78,12 +80,27 @@ namespace SolitaireFront
                 // 2. Flip it face up before moving to Waste
                 card.isFaceUp = true;
 
-                // 3. Add it to the Waste pile
+                //3. Add it to the Waste pile
                 gm.Waste.addCard(card);
 
                 // 4. Notify the UI that 'TopCard' has changed
                 // (If Stock implements INotifyPropertyChanged)
+
+
+                //int drawCount = (int)lm.difficulty;
+                //List<Card> drawn = gm.Stock.draw(drawCount);
+
+                //foreach (Card card in drawn)
+                //{
+                //    card.isFaceUp = true;
+                //    gm.Waste.addCard(card);
+                //}
             }
+            else
+            {
+                gm.stockRecycle();
+            }
+
         }
 
 

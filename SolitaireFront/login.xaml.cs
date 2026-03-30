@@ -96,7 +96,7 @@ namespace SolitaireFront
             loginManager.setVegasMode(false);
         }
 
-        private void howTo(object sender, RoutedEventArgs e) // fill in next timre but should containt a simple how to, info on dificulty, how vegas works, and the goal
+        private void howTo(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(
             "HOW TO PLAY SOLITAIRE\n\n" +
@@ -177,8 +177,20 @@ namespace SolitaireFront
             //#1
             //var GameManager = new GameManager();
             GameManager.Instance.StartGame();
-            
+
             NavigationService.Navigate(new Page1(GameManager.Instance));
+        }
+
+        private void combo_Difficulty_selection(object sender, ContextMenuEventArgs e)
+        {
+            if (combo_Difficulty.SelectedItem == null)
+            {
+                return;
+            }
+
+            if (combo_Difficulty.SelectedIndex == 0) loginManager.setDifficulty("easy");
+            else if (combo_Difficulty.SelectedIndex == 1) loginManager.setDifficulty("medium");
+            return;
         }
     }
 }
