@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -131,9 +132,10 @@ namespace SolitaireFront
             MessageBoxImage.Information);
         }
 
-        private void btn_Start_Click(object sender, RoutedEventArgs e)
-        {
 
+
+        private void btn_Start_Click(object sender, RoutedEventArgs e)
+        {   
             var first = txtbx_firstN.Text?.Trim() ?? string.Empty;
             var last = txtbx_secondN.Text?.Trim() ?? string.Empty;
             var dob = dp_DateOfBirth.SelectedDate;
@@ -177,6 +179,28 @@ namespace SolitaireFront
             GameManager.Instance.StartGame();
 
             NavigationService.Navigate(new Page1(GameManager.Instance));
+        }
+
+        private void combo_Difficulty_DropDownClosed(object sender, EventArgs e)
+        {
+            // determine difficulty robustly (ComboBox items are TextBlocks)
+            int idx = combo_Difficulty.SelectedIndex;
+            string diffText;
+            if (idx >= 0)
+            {
+                // map index 0 -> easy, index 1 -> medium
+                diffText = idx == 0 ? "easy" : "medium";
+            }
+            else
+            {
+                diffText = (combo_Difficulty.SelectedItem as TextBlock)?.Text ?? combo_Difficulty.Text;
+            }
+
+            if (!loginManager.setDifficulty(diffText))
+            {
+                MessageBox.Show("Invalid difficulty selection.", "Invalid", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
         }
     }
 }

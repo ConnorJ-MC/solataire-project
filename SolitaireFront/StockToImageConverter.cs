@@ -14,7 +14,7 @@ namespace SolitaireFront
         {
             int count = (int)value;
 
-            if (count == 0) return "/Recources/Playing Cards/card-blank.png";
+            if (count == 0) return "/Recources/Playing Cards/card-foundation-default.png";
 
             return "/Recources/Playing Cards/card-back2.png";
         }

@@ -37,6 +37,6 @@ namespace SolitaireBack
 
         public void flip() => isFaceUp = !isFaceUp;
 
-        public bool isRed() => suit == Suit.diamonds || suit == Suit.hearts;
+        public bool isRed => suit == Suit.diamonds || suit == Suit.hearts;
     }
 }

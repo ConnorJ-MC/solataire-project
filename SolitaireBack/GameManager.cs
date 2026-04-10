@@ -1,4 +1,5 @@
-﻿using SolitaireBack.CardPiles;
+﻿using System.Diagnostics;
+using SolitaireBack.CardPiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +54,6 @@ namespace SolitaireBack
             waste = new Waste();
 
             movesTaken = 0;
-            //hi
             return deal();
         }
         public bool deal()
@@ -89,7 +89,29 @@ namespace SolitaireBack
             List<Card> removedStack = source.removeStack(c);
             if (removedStack == null) return false;
 
+            // Ensure moved cards are face-up so UI converters render them correctly
+            foreach (var movedCard in removedStack)
+            {
+                movedCard.isFaceUp = true;
+            }
+
             if (!target.addStack(removedStack)) return false;
+
+            // debug: if moved to foundation, log details
+            if (target is Foundation f)
+            {
+                Debug.WriteLine($"Added {removedStack.Count} card(s) to Foundation {f.suit}. Foundation count now: {f.cards.Count}");
+            }
+
+            // flip new top of source if present
+            try
+            {
+                if (!source.isEmpty())
+                {
+                    source.peakTop();
+                }
+            }
+            catch { }
 
             applyVegasScoring(source, target);
             movesTaken++;
@@ -177,11 +199,13 @@ namespace SolitaireBack
             if (stock.isEmpty()) return stockRecycle();
             else
             {
-                List<Card> drawnCards = stock.draw((int)login.difficulty);
+                // ensure we draw at least one card
+                int drawCount = Math.Max(1, (int)login.difficulty);
+                List<Card> drawnCards = stock.draw(drawCount);
                 if (drawnCards == null || drawnCards.Count == 0) return false;
 
                 foreach (Card card in drawnCards) card.flip();
-
+                movesTaken++;   
                 return waste.addStack(drawnCards);
             }
         }

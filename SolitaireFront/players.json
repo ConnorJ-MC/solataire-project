@@ -1,0 +1,22 @@
+{
+  "players": [
+    {
+      "fName": "Alice",
+      "lName": "Smith",
+      "dob": "1990-04-15",
+      "balance": 100,
+      "gamesP": 10,
+      "gamesW": 6,
+      "gamesL": 4
+    },
+    {
+      "fName": "Bob",
+      "lName": "Jones",
+      "dob": "1985-11-03",
+      "balance": 50,
+      "gamesP": 5,
+      "gamesW": 2,
+      "gamesL": 3
+    }
+  ]
+}

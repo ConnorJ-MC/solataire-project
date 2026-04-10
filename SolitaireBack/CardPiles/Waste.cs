@@ -27,5 +27,12 @@ namespace SolitaireBack.CardPiles
             cards.Clear();
             return cardsToReturn;
         }
+
+        // Disallow arbitrary moves into the waste pile.
+        // The stock drawing logic should call waste.addStack(...) directly.
+        public override bool canAccept(Card c)
+        {
+            return false;
+        }
     }
 }

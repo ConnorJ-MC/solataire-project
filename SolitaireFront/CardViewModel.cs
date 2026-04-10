@@ -19,6 +19,19 @@ namespace SolitaireFront
             ? $"Recources/Playing Cards/card-{Model.suit}-{Model.rank}.png"
             : "Recources/Playing Cards/card-back2.png";
 
+        // new: top / interactable marker used for waste UI
+        private bool _isTop;
+        public bool IsTop
+        {
+            get => _isTop;
+            set
+            {
+                if (_isTop == value) return;
+                _isTop = value;
+                OnPropertyChanged(nameof(IsTop));
+            }
+        }
+
         public CardViewModel(Card model)
         {
             Model = model;
@@ -28,6 +41,7 @@ namespace SolitaireFront
         {
             OnPropertyChanged(nameof(ImagePath));
             OnPropertyChanged(nameof(Model.isFaceUp));
+            OnPropertyChanged(nameof(IsTop));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

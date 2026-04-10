@@ -8,9 +8,7 @@ namespace SolitaireBack.CardPiles
 {
     public class Foundation : CardPile
     {
-        public Foundation() : base()
-        {
-        }
+        public Foundation() : base() { }
 
         public Foundation(Suit suit)
         {
@@ -19,16 +17,11 @@ namespace SolitaireBack.CardPiles
 
         public Suit suit;
 
-        public new bool canAccept(Card c)
+        // override so runtime dispatch works when called through CardPile reference
+        public override bool canAccept(Card c)
         {
-            if (c.suit != suit)
-            {
-                return false;
-            }
-            if (isEmpty())
-            {
-                return c.rank == 1;
-            }
+            if (c.suit != suit) return false;
+            if (isEmpty()) return c.rank == 1;
             return c.rank == cards.Last().rank + 1;
         }
     }

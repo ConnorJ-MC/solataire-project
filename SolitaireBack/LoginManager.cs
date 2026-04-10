@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading;
 
 namespace SolitaireBack
 {
-
     public enum Difficulty
     {
         easy = 1,
@@ -17,19 +17,53 @@ namespace SolitaireBack
     public class LoginManager
     {
         private static LoginManager _instance;
-        public static LoginManager Instance
+        public static LoginManager Instance => _instance ??= new LoginManager();
+
+        private readonly object _fileLock = new();
+
+        private readonly string jsonFilePath;
+
+        private LoginManager()
         {
-            get
-            {
-                if (_instance == null)
-                {
-                    _instance = new LoginManager();
-                }
-                return _instance;
-            }
+            string saveFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                "NCL",
+                "Solitaire");
+
+            Directory.CreateDirectory(saveFolder);
+
+            jsonFilePath = Path.Combine(saveFolder, "players.json");
+
+            // If this is the first run and we have a deployed data file, copy it to AppData
+            TryCopyDefaultFromDeploymentData();
+
+            loadAllPlayersFromJSON();
         }
 
+        private void TryCopyDefaultFromDeploymentData()
+        {
+            try
+            {
+                // Look for a shipped players.json in the app's base directory (works for ClickOnce or regular publish)
+                string baseDir = AppContext.BaseDirectory ?? AppDomain.CurrentDomain.BaseDirectory;
+                string candidate = Path.Combine(baseDir, "players.json");
 
+                // Some deployment scenarios (ClickOnce) may place data in a sibling Data directory named "data"
+                if (!File.Exists(candidate))
+                {
+                    string dataDirCandidate = Path.Combine(baseDir, "data", "players.json");
+                    if (File.Exists(dataDirCandidate)) candidate = dataDirCandidate;
+                }
+
+                if (File.Exists(candidate) && !File.Exists(jsonFilePath))
+                {
+                    File.Copy(candidate, jsonFilePath);
+                }
+            }
+            catch
+            {
+                // best-effort: do not block startup if we can't find or copy the file
+            }
+        }
 
         public Difficulty difficulty { get; private set; }
         public bool gamble { get; set; }
@@ -45,22 +79,6 @@ namespace SolitaireBack
         //private int newGamesL;
 
         public bool isGuest { get; set; }
-
-        private readonly string jsonFilePath;
-
-        public LoginManager()
-        {
-            string saveFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                "NCL",
-                "Solitaire"
-            );
-
-            Directory.CreateDirectory(saveFolder);
-
-            jsonFilePath = Path.Combine(saveFolder, "players.json");
-
-            loadAllPlayersFromJSON();
-        }
 
         public bool setDifficulty(String diff)
         {
@@ -129,22 +147,15 @@ namespace SolitaireBack
 
         public bool savePlayerData(Player p)
         {
-            if (isGuest)
+            lock (_fileLock)
             {
-                isGuest = false; // Exiting guest mode, but we won't save guest data to JSON.
-                return true;
-            }
+                // update in-memory list
+                int idx = players.FindIndex(x => x.fName == p.fName && x.lName == p.lName && x.dob == p.dob);
+                if (idx >= 0) players[idx] = p;
+                else players.Add(p);
 
-            for (int i = 0; i < players.Count; i++)
-            {
-                if (players[i].fName == p.fName && players[i].lName == p.lName && players[i].dob == p.dob)
-                {
-                    players[i] = p;
-                    return saveAllPlayersToJSON();
-                }
+                return saveAllPlayersToJSON();
             }
-
-            return false; // Player not found, cannot save.
         }
 
         public Player LoadPlayerData(string fName, string lName, DateOnly dob)
@@ -176,51 +187,123 @@ namespace SolitaireBack
         {
             if (jsonLoaded)
             {
-                return true; // Already loaded, no need to load again.
+                System.Diagnostics.Debug.WriteLine("Players JSON already loaded.");
+                return true;
             }
 
             try
             {
                 if (!File.Exists(jsonFilePath))
                 {
-                    // If the file doesn't exist, we can consider it as successfully "loaded" with an empty list.
+                    System.Diagnostics.Debug.WriteLine($"players.json not found at {jsonFilePath}");
                     jsonLoaded = true;
+                    players = new List<Player>();
                     return true;
                 }
 
                 string jsonData = File.ReadAllText(jsonFilePath);
-                players = JsonSerializer.Deserialize<List<Player>>(jsonData) ?? new List<Player>();
+
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                    WriteIndented = true
+                };
+                options.Converters.Add(new DateOnlyJsonConverter());
+
+                using (var doc = JsonDocument.Parse(jsonData))
+                {
+                    var root = doc.RootElement;
+                    if (root.ValueKind == JsonValueKind.Array)
+                    {
+                        // file is a plain array of players
+                        players = JsonSerializer.Deserialize<List<Player>>(root.GetRawText(), options) ?? new List<Player>();
+                        jsonLoaded = true;
+                        System.Diagnostics.Debug.WriteLine($"Loaded {players.Count} player(s) (array) from {jsonFilePath}");
+                        foreach (var p in players)
+                            System.Diagnostics.Debug.WriteLine($"Player: {p.fName} {p.lName} dob={p.dob} bal={p.balance}");
+                        return true;
+                    }
+
+                    if (root.ValueKind == JsonValueKind.Object && root.TryGetProperty("players", out var playersElem))
+                    {
+                        // file wraps players in { "players": [...] }
+                        players = JsonSerializer.Deserialize<List<Player>>(playersElem.GetRawText(), options) ?? new List<Player>();
+                        jsonLoaded = true;
+                        System.Diagnostics.Debug.WriteLine($"Loaded {players.Count} player(s) (wrapped) from {jsonFilePath}");
+                        foreach (var p in players)
+                            System.Diagnostics.Debug.WriteLine($"Player: {p.fName} {p.lName} dob={p.dob} bal={p.balance}");
+                        return true;
+                    }
+                }
+
+                // unsupported structure
+                System.Diagnostics.Debug.WriteLine("players.json structure not recognized.");
+                players = new List<Player>();
                 jsonLoaded = true;
-                return true;
+                return false;
             }
             catch (Exception ex)
             {
+                System.Diagnostics.Debug.WriteLine("Failed to load players.json: " + ex);
+                players = new List<Player>();
+                jsonLoaded = true;
                 return false;
             }
         }
 
         public bool saveAllPlayersToJSON()
         {
-            if (isGuest)
+            lock (_fileLock)
             {
-                return true; // No need to save guest data.
-            }
+                try
+                {
+                    var options = new JsonSerializerOptions { WriteIndented = true };
+                    string jsonData = JsonSerializer.Serialize(players, options);
 
-            if (jsonSaved)
-            {
-                return true;
-            }
+                    // atomic write: write to temp then replace
+                    string tmp = jsonFilePath + ".tmp";
+                    File.WriteAllText(tmp, jsonData);
+                    // Use File.Replace when possible to preserve existing file metadata
+                    if (File.Exists(jsonFilePath))
+                    {
+                        File.Replace(tmp, jsonFilePath, null);
+                    }
+                    else
+                    {
+                        File.Move(tmp, jsonFilePath);
+                    }
 
-            try
-            {
-                string jsonData = JsonSerializer.Serialize(players, new JsonSerializerOptions { WriteIndented = true });
-                File.WriteAllText(jsonFilePath, jsonData);
-                return true;
+                    return true;
+                }
+                catch
+                {
+                    // best-effort save
+                    return false;
+                }
             }
-            catch (Exception ex)
+        }
+    }
+
+    // Add this DateOnly converter class into the same file (below the LoginManager class or inside it as static/private)
+    internal class DateOnlyJsonConverter : System.Text.Json.Serialization.JsonConverter<DateOnly>
+    {
+        private const string Format = "yyyy-MM-dd";
+        public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        {
+            if (reader.TokenType == JsonTokenType.String)
             {
-                return false;
+                var s = reader.GetString();
+                if (DateOnly.TryParseExact(s, Format, null, System.Globalization.DateTimeStyles.None, out var d))
+                    return d;
+                if (DateOnly.TryParse(s, out d))
+                    return d;
             }
+            throw new JsonException($"Unable to convert to DateOnly from token: {reader.GetString()}");
+        }
+
+        public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
+        {
+            writer.WriteStringValue(value.ToString(Format));
         }
     }
 }

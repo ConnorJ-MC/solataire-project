@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="players.json" />
     <None Remove="Recources\Playing Cards\card-back2.png" />
     <None Remove="Recources\Playing Cards\card-blank.png" />
     <None Remove="Recources\Playing Cards\card-clubs-1.png" />
@@ -38,11 +39,14 @@
     <None Remove="Recources\Playing Cards\card-diamonds-7.png" />
     <None Remove="Recources\Playing Cards\card-diamonds-8.png" />
     <None Remove="Recources\Playing Cards\card-diamonds-9.png" />
-    <None Remove="Recources\Playing Cards\card-foundation-club.png" />
+    <None Remove="Recources\Playing Cards\card-foundation-clubs.png" />
     <None Remove="Recources\Playing Cards\card-foundation-default.png" />
     <None Remove="Recources\Playing Cards\card-foundation-diamond.png" />
+    <None Remove="Recources\Playing Cards\card-foundation-diamonds.png" />
     <None Remove="Recources\Playing Cards\card-foundation-heart.png" />
+    <None Remove="Recources\Playing Cards\card-foundation-hearts.png" />
     <None Remove="Recources\Playing Cards\card-foundation-spade.png" />
+    <None Remove="Recources\Playing Cards\card-foundation-spades.png" />
     <None Remove="Recources\Playing Cards\card-hearts-1.png" />
     <None Remove="Recources\Playing Cards\card-hearts-10.png" />
     <None Remove="Recources\Playing Cards\card-hearts-11.png" />
@@ -73,6 +77,9 @@
 
   <ItemGroup>
     <Content Include="favicon (1).ico" />
+    <Content Include="players.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -164,19 +171,19 @@
     <Resource Include="Recources\Playing Cards\card-diamonds-9.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Recources\Playing Cards\card-foundation-club.png">
+    <Resource Include="Recources\Playing Cards\card-foundation-clubs.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Recources\Playing Cards\card-foundation-default.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Recources\Playing Cards\card-foundation-diamond.png">
+    <Resource Include="Recources\Playing Cards\card-foundation-diamonds.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Recources\Playing Cards\card-foundation-heart.png">
+    <Resource Include="Recources\Playing Cards\card-foundation-hearts.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Recources\Playing Cards\card-foundation-spade.png">
+    <Resource Include="Recources\Playing Cards\card-foundation-spades.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Recources\Playing Cards\card-hearts-1.png">
