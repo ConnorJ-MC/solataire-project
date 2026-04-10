@@ -215,6 +215,7 @@ namespace SolitaireFront
             if (DataContext is Page1ViewModel viewModel)
             {
                 viewModel.ResetGame();
+                LoginManager.Instance.isGuest = false;
                 NavigationService.Navigate(new Login());
             }
         }
@@ -224,7 +225,7 @@ namespace SolitaireFront
             var lg = LoginManager.Instance;
             var gm = GameManager.Instance;
 
-            lbl_FuulName.Content = lg.currentPlayer.fName;
+            lbl_FuulName.Content = lg.currentPlayer.fName + " " + lg.currentPlayer.lName;
             lbl_WinRate.Content = lg.currentPlayer.gamesW + "/" + lg.currentPlayer.gamesP;
 
             if (lg.gamble)

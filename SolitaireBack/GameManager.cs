@@ -146,11 +146,6 @@ namespace SolitaireBack
                     login.currentPlayer.balance += 5;
                     return true;
                 }
-                else if (source is Foundation && target is not Foundation)
-                {
-                    login.currentPlayer.balance -= 5;
-                    return true;
-                }
             }
 
             return false;
@@ -205,7 +200,7 @@ namespace SolitaireBack
                 if (drawnCards == null || drawnCards.Count == 0) return false;
 
                 foreach (Card card in drawnCards) card.flip();
-                movesTaken++;   
+                movesTaken++;
                 return waste.addStack(drawnCards);
             }
         }

@@ -122,7 +122,6 @@ namespace SolitaireFront
             "VEGAS MODE\n" +
             "• Costs 52 credits to start a game.\n" +
             "• You earn +5 credits for every card you move to a Foundation.\n" +
-            "• You lose -5 credits if you move a card back off a Foundation.\n" +
             "• Your balance carries over between games.\n\n" +
 
             "WINNING\n" +
