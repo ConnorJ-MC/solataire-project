@@ -25,13 +25,13 @@
             <TextBox x:Name="txtbx_secondN" Canvas.Left="114" TextWrapping="Wrap" Canvas.Top="84" Width="120" Height="21" HorizontalAlignment="Center" VerticalAlignment="Top"/>
             <DatePicker x:Name="dp_DateOfBirth" Canvas.Left="114" Canvas.Top="114" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" CalendarClosed="ageValidate"/>
             <Button x:Name="btn_Start" Content="START" Canvas.Left="265" Canvas.Top="239" Height="32" Width="45" Click="btn_Start_Click" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-            <CheckBox x:Name="cb_VegasMode" Content=": VEGAS MODE (Must be 18+ to enable)" Canvas.Left="10" Canvas.Top="256" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Checked="VegasON" Unchecked="VegasOFF" IsEnabled="False"/>
+            <CheckBox x:Name="cb_VegasMode" Content=": VEGAS MODE (Must be 18+ to enable)" Canvas.Left="14" Canvas.Top="166" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Checked="VegasON" Unchecked="VegasOFF" IsEnabled="False"/>
             <ComboBox x:Name="combo_Difficulty" Canvas.Left="14" Canvas.Top="207" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" DropDownClosed="combo_Difficulty_DropDownClosed">
                 <TextBlock Text="easy" FontSize="14" FontWeight="Bold"/>
                 <TextBlock Text="medium" FontSize="14" FontWeight="Bold"/>
             </ComboBox>
             <Label Content="Difficulty*" Canvas.Left="10" Canvas.Top="181" Width="106" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
-            <CheckBox x:Name="rb_isGuest" Content="or as a guest" Canvas.Left="14" Canvas.Top="151" HorizontalAlignment="Center" VerticalAlignment="Top" Checked="isaGuest" Unchecked="isNotaGuest" ToolTip="won't save anything"/>
+            <CheckBox x:Name="rb_isGuest" Content="or as a guest" Canvas.Left="14" Canvas.Top="144" HorizontalAlignment="Center" VerticalAlignment="Top" Checked="isaGuest" Unchecked="isNotaGuest" ToolTip="won't save anything"/>
             <Label Content="LOGIN" Canvas.Left="10" Canvas.Top="10" Height="38" Width="300" Foreground="White" FontWeight="Bold" FontSize="24" FontStyle="Italic"/>
             <Button Content="?" Canvas.Left="286" Canvas.Top="10" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="24" FontWeight="Bold" FontStyle="Italic" Click="howTo" Background="#FF749962" BorderBrush="Red" Foreground="Red" BorderThickness="2,2,2,2" ToolTip="How to play"/>
         </Canvas>
