@@ -15,7 +15,7 @@ namespace DraggableLabelDemo
         {
             InitializeComponent();
         }
-
+        //hi
         private void Label_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)

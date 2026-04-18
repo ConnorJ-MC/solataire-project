@@ -1,0 +1,134 @@
+﻿<Page x:Class="SolitaireFront.Page1"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SolitaireFront"
+      mc:Ignorable="d" 
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      Title="Page1" Height="894" Width="1276">
+
+    <Page.Resources>
+        <local:StockToImageConverter x:Key="StockToImageConverter"/>
+        <local:TableauOffsetConverter x:Key="TableauOffsetConverter"/>
+        <local:FoundationToImageConverter x:Key="FoundationToImageConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="AUTO"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Canvas x:Name="topCanvas" Grid.Row="0" Height="46">
+            <Canvas.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF968764"/>
+                    <GradientStop Color="#FFF9E3AD" Offset="1"/>
+                </LinearGradientBrush>
+            </Canvas.Background>
+            <Label x:Name="lbl_FuulName" Content="connor mccaig" Height="46" Width="199" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
+            <Label Content="WON:" Height="46" Width="78" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="199" FontWeight="Bold"/>
+            <Label x:Name="lbl_WinRate" Content="#/#" Height="46" Width="74" FontSize="24" Canvas.Left="277" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+            <Label x:Name="lbl_Balance" Content="BALANCE:" Height="46" Width="125" FontSize="24" Canvas.Left="356" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label x:Name="lbl_BalanceAmount" Content="£##.##" Height="46" Width="106" FontSize="24" Canvas.Left="481" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Button x:Name="btn_Reset" Content="RESET" Canvas.Left="608" Canvas.Top="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Height="32" Width="60" Click="btn_Reset_Click"/>
+            <Label Content="MOVES TAKEN" Height="46" Width="180" FontSize="24" Canvas.Left="1082" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <Label HorizontalContentAlignment="Right" x:Name="lbl_movesTaken" Content="##" Height="46" Width="106" FontSize="24" Canvas.Left="976" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        </Canvas>
+
+        <Grid Grid.Row="1" x:Name="GameGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <!-- stock image: click to draw/recycle -->
+                    <Image Width="144" Height="216"
+                           Source="{Binding Stock.Cards.Count, Converter={StaticResource StockToImageConverter}}"
+                           MouseLeftButtonDown="StockImage_MouseLeftButtonDown"/>
+                    <ItemsControl ItemsSource="{Binding WasteTop}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- overlap the waste cards and only allow hit for the top card -->
+                                <Image Source="{Binding ImagePath}" Width="144" Height="216" Margin="0,0,-100,0"
+                                       MouseLeftButtonDown="CardImage_MouseLeftButtonDown"
+                                       IsHitTestVisible="{Binding IsTop}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,88,0">
+                    <ItemsControl ItemsSource="{Binding Foundations}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <!-- Border (pile) is clickable as a target -->
+                                <Border Width="144" Height="216" Margin="0,0,20,0" Background="Transparent"
+                                        MouseLeftButtonDown="PileImage_MouseLeftButtonDown">
+                                    <!-- Bind directly to TopCardImagePath on the PileViewModel -->
+                                    <Image Source="{Binding TopCardImagePath}" Width="144" Height="216"/>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Tableau}" Margin="10">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <!-- Make the whole tableau border clickable (for empty tableau target) -->
+                        <Border Width="144" Margin="10,0,10,0" Background="Transparent" MouseLeftButtonDown="PileImage_MouseLeftButtonDown">
+                            <ItemsControl ItemsSource="{Binding Cards}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <!-- clicking a tableau card selects / attempts moves -->
+                                        <Image Source="{Binding ImagePath}"
+                                               Width="144"
+                                               Height="216"
+                                               Margin="0,0,0,-190"
+                                               MouseLeftButtonDown="CardImage_MouseLeftButtonDown"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </Grid>
+</Page>

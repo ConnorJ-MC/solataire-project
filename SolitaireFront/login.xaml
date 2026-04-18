@@ -1,0 +1,39 @@
+﻿<Page x:Class="SolitaireFront.Login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SolitaireFront"
+      mc:Ignorable="d" 
+      Title="login" Height="279" Width="320">
+    <Page.Effect>
+        <DropShadowEffect Direction="0" BlurRadius="50" RenderingBias="Performance" ShadowDepth="0"/>
+    </Page.Effect>
+    <Page.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FF517541" Offset="0"/>
+            <GradientStop Color="#FF749962" Offset="1"/>
+        </LinearGradientBrush>
+    </Page.Background>
+
+    <Grid>
+        <Canvas>
+            <Label Content="First name*" Canvas.Left="8" Canvas.Top="51" HorizontalAlignment="Center" VerticalAlignment="Top" Width="106" Background="{x:Null}" Foreground="White"/>
+            <Label Content="Date of Birth*" Canvas.Left="8" Canvas.Top="113" Width="106" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
+            <Label Content="Second name*" Canvas.Left="8" Canvas.Top="82" Width="106" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
+            <TextBox x:Name="txtbx_firstN" Canvas.Left="114" TextWrapping="Wrap" Canvas.Top="53" Width="120" HorizontalAlignment="Center" Height="21" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtbx_secondN" Canvas.Left="114" TextWrapping="Wrap" Canvas.Top="84" Width="120" Height="21" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <DatePicker x:Name="dp_DateOfBirth" Canvas.Left="114" Canvas.Top="114" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120" CalendarClosed="ageValidate"/>
+            <Button x:Name="btn_Start" Content="START" Canvas.Left="265" Canvas.Top="239" Height="32" Width="45" Click="btn_Start_Click" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+            <CheckBox x:Name="cb_VegasMode" Content=": VEGAS MODE (Must be 18+ to enable)" Canvas.Left="14" Canvas.Top="166" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" Checked="VegasON" Unchecked="VegasOFF" IsEnabled="False"/>
+            <ComboBox x:Name="combo_Difficulty" Canvas.Left="14" Canvas.Top="207" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top" DropDownClosed="combo_Difficulty_DropDownClosed">
+                <TextBlock Text="easy" FontSize="14" FontWeight="Bold"/>
+                <TextBlock Text="medium" FontSize="14" FontWeight="Bold"/>
+            </ComboBox>
+            <Label Content="Difficulty*" Canvas.Left="10" Canvas.Top="181" Width="106" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White"/>
+            <CheckBox x:Name="rb_isGuest" Content="or as a guest" Canvas.Left="14" Canvas.Top="144" HorizontalAlignment="Center" VerticalAlignment="Top" Checked="isaGuest" Unchecked="isNotaGuest" ToolTip="won't save anything"/>
+            <Label Content="LOGIN" Canvas.Left="10" Canvas.Top="10" Height="38" Width="300" Foreground="White" FontWeight="Bold" FontSize="24" FontStyle="Italic"/>
+            <Button Content="?" Canvas.Left="286" Canvas.Top="10" HorizontalAlignment="Left" Height="24" VerticalAlignment="Top" Width="24" FontWeight="Bold" FontStyle="Italic" Click="howTo" Background="#FF749962" BorderBrush="Red" Foreground="Red" BorderThickness="2,2,2,2" ToolTip="How to play"/>
+        </Canvas>
+    </Grid>
+</Page>
