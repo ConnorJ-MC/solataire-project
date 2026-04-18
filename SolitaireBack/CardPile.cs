@@ -15,6 +15,11 @@ namespace SolitaireBack
             if (card == null) return false;
             if (cards.Contains(card)) return false;
             try { cards.Add(card); return true; } catch { return false; }
+
+            /*
+             * this adds a single carrd to the target pile, and returns true if successful, false otherwise.
+             * It should return false if the card is null, or if the card is already in the pile. It should not throw an exception.
+             */
         }
 
         public bool removeTop(Card card)
@@ -24,6 +29,13 @@ namespace SolitaireBack
             if (index == -1) return false;
             if (index != cards.Count - 1) return false;
             try { cards.RemoveAt(index); return true; } catch { return false; }
+
+            /*
+             * this removes the specified card from the pile, but only if it is the top card. 
+             * It should return true if successful, false otherwise. 
+             * It should return false if the card is null, if the card is not in the pile, or if the card is not the top card. 
+             * It should not throw an exception.
+             */
         }
 
         public bool addStack(List<Card> stack)
@@ -32,6 +44,12 @@ namespace SolitaireBack
             if (stack.Any(c => c == null)) return false;
             if (stack.Any(c => cards.Contains(c))) return false;
             try { cards.AddRange(stack); return true; } catch { return false; }
+
+            /*
+             * this adds a stack of cards to the target pile, and returns true if successful, false otherwise.
+             * It should return false if the stack is null, empty, contains null cards, or if any card in the stack is already in the pile.
+             * It should not throw an exception.
+             */
         }
 
         public List<Card> removeStack(Card card)
@@ -42,6 +60,11 @@ namespace SolitaireBack
             List<Card> stack = cards.GetRange(index, cards.Count - index);
             cards.RemoveRange(index, cards.Count - index);
             return stack;
+
+            /*
+             * this removes the specified card and all cards above it from the pile, and returns them as a list.
+             * It should throw an ArgumentException if the card is not found in the pile.
+             */
         }
 
         public Card peakTop()
@@ -57,6 +80,11 @@ namespace SolitaireBack
             }
 
             return top;
+
+            /*
+             * this returns the top card of the pile without removing it. If the pile is empty, it should throw an InvalidOperationException.
+             * If the top card is face down, it should be flipped face up before being returned.
+             */
         }
 
         public List<Card> getStackFrom(Card c)
@@ -67,11 +95,20 @@ namespace SolitaireBack
                 return null;
             }
             return cards.GetRange(index, cards.Count - index);
+
+            /*
+             * this returns a list of the specified card and all cards above it in the pile, without removing them. 
+             * If the specified card is not found in the pile, or if the specified card is face down, it should return null.
+             */
         }
 
-        public bool isEmpty() => cards.Count == 0;
+        public bool isEmpty() => cards.Count == 0; // A method that returns true if the pile is empty (i.e., contains no cards) and false otherwise.
 
-        public bool contains(Card card) => cards.Contains(card);
+        public bool contains(Card card) => cards.Contains(card); 
+        /*
+         * A method that returns true if the specified card is in the pile and false otherwise. 
+         * It should return false if the card is null.
+         */
 
         // Make this overridable so subclasses enforce their rules at runtime
         public virtual bool canAccept(Card card) => true;

@@ -19,6 +19,12 @@ namespace SolitaireFront
             InitializeComponent();
             DataContext = new Page1ViewModel(gm);
             UpdateTopBar();
+
+            /* 
+            * The Page1 class represents the main game page of the Solitaire application. 
+            * It contains event handlers for user interactions such as clicking on the stock, cards, and piles. 
+            * The class manages the selection of cards and piles, attempts to execute moves based on user input, and updates the UI accordingly.
+            */
         }
 
         private void StockImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -48,6 +54,12 @@ namespace SolitaireFront
             });
 
             e.Handled = true;
+
+            /*
+             * The StockImage_MouseLeftButtonDown method is an event handler that is called when the user clicks on the stock pile. 
+             * It attempts to draw cards from the stock using the GameManager's drawFromStock method, updates the UI, 
+             * and prevents the click event from bubbling up further.
+             */
         }
 
         private void CardImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -131,6 +143,13 @@ namespace SolitaireFront
             // Try move selected -> clicked card's pile
             TryExecuteMove(_selectedCardVm, targetPileVm);
             e.Handled = true;
+
+            /*
+             * The CardImage_MouseLeftButtonDown method is an event handler that is called when the user clicks on a card. 
+             * It manages the selection of cards and attempts to execute moves based on the user's clicks. 
+             * The method checks if the clicked card is face-up, identifies the pile it belongs to,
+             * and either selects it or tries to move the currently selected card to the clicked card's pile.
+             */
         }
 
         private void PileImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -151,6 +170,11 @@ namespace SolitaireFront
 
             TryExecuteMove(_selectedCardVm, targetPileVm);
             e.Handled = true;
+
+            /*
+            * The PileImage_MouseLeftButtonDown method is an event handler that is called when the user clicks on a pile (tableau or foundation). 
+            * If a card is currently selected, it attempts to move the selected card to the clicked pile using the TryExecuteMove method.
+            */
         }
 
         private void TryExecuteMove(CardViewModel sourceCardVm, PileViewModel targetPileVm)
@@ -185,6 +209,11 @@ namespace SolitaireFront
             }
 
             ClearSelection();
+
+            /*
+            * The TryExecuteMove method attempts to move a card from its current pile to a target pile using the GameManager's TryMove method. 
+            * It updates the UI after the move attempt and clears the current selection regardless of whether the move was successful.
+            */
         }
 
         private void ClearSelection()
@@ -197,6 +226,11 @@ namespace SolitaireFront
             _selectedCardVm = null;
             _selectedPileVm = null;
             Debug.WriteLine("Selection cleared");
+
+            /* 
+            * The ClearSelection method resets the selection state by clearing the selected card, pile, 
+            * and any visual cues on the previously selected element.
+            */
         }
 
         private PileViewModel? GetParentPileViewModel(DependencyObject start)
@@ -208,6 +242,12 @@ namespace SolitaireFront
                 current = VisualTreeHelper.GetParent(current);
             }
             return null;
+
+            /*
+             * The GetParentPileViewModel method traverses up the visual tree starting from a given element
+             * to find the nearest parent that has a PileViewModel as its DataContext. 
+             * This is used to determine which pile a clicked card belongs to when handling card clicks.
+             */
         }
 
         private void btn_Reset_Click(object sender, RoutedEventArgs e)
@@ -218,6 +258,12 @@ namespace SolitaireFront
                 LoginManager.Instance.isGuest = false;
                 NavigationService.Navigate(new Login());
             }
+
+            /* 
+            * The btn_Reset_Click method is an event handler for the reset button. 
+            * It resets the game state using the Page1ViewModel's ResetGame method, 
+            * sets the user as not a guest in the LoginManager, and navigates back to the login page.
+            */
         }
 
         private void UpdateTopBar()
@@ -249,6 +295,11 @@ namespace SolitaireFront
             Debug.WriteLine($"games played: {lg.currentPlayer.gamesP}");
             Debug.WriteLine($"games won: {lg.currentPlayer.gamesW}");
             Debug.WriteLine($"games lost: {lg.currentPlayer.gamesL}");
+
+            /* 
+            * The UpdateTopBar method updates the UI elements in the top bar of the game page to reflect the current player's information, 
+            * such as their full name, win rate, balance (if gambling mode is enabled), and the number of moves taken in the current game.
+            */
         }
     }
 }

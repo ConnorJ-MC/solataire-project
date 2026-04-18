@@ -47,6 +47,13 @@ namespace SolitaireFront
 
             // initialize viewmodel state
             Refresh();
+
+            /* 
+             * The constructor initializes the Page1ViewModel by setting up references to the GameManager 
+             * and creating PileViewModel instances for the Stock, Waste, Foundations, and Tableau piles. 
+             * It also initializes the WasteTop collection to expose only the top N waste cards for the UI. 
+             * Finally, it calls the Refresh method to populate the viewmodel state based on the current game state.
+             */
         }
 
         public void Refresh()
@@ -80,12 +87,27 @@ namespace SolitaireFront
             {
                 tableau.Refresh();
             }
+
+            /* 
+             * The Refresh method updates the state of the viewmodel based on the current game state. 
+             * It calls Refresh on the Stock and Waste PileViewModels to update their card collections. 
+             * It then populates the WasteTop collection with the last up to 3 cards from the Waste.Cards collection, 
+             * preserving the existing CardViewModel instances. 
+             * It also marks only the last (top) waste card as interactable by setting the IsTop property. 
+             * Finally, it calls Refresh on each Foundation and Tableau PileViewModel to update their card collections.
+             */
         }
 
         public void ResetGame()
         {
             Game.resetGame();
             Refresh();
+
+            /* 
+            * The ResetGame method resets the game state by calling the resetGame method on the GameManager instance, 
+            * and then calls Refresh to update the viewmodel state to reflect the new game state. 
+            * This allows the UI to update and display the initial setup of a new game.
+            */
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

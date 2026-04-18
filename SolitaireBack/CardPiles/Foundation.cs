@@ -17,12 +17,13 @@ namespace SolitaireBack.CardPiles
 
         public Suit suit;
 
-        // override so runtime dispatch works when called through CardPile reference
         public override bool canAccept(Card c)
         {
             if (c.suit != suit) return false;
             if (isEmpty()) return c.rank == 1;
             return c.rank == cards.Last().rank + 1;
+
+            // The foundation can only accept cards of the same suit, and they must be placed in ascending order starting with the Ace (rank 1).
         }
     }
 }

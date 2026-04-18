@@ -16,6 +16,11 @@ namespace SolitareTest
             var c = new Card(s, r);
             c.isFaceUp = faceUp;
             return c;
+
+            /*
+            * A helper method to create a card with the specified suit, rank, and face-up status. 
+            * By default, the card is created as face up (faceUp = true), but this can be overridden by passing false for the faceUp parameter.
+            */
         }
 
         [Fact]
@@ -43,6 +48,12 @@ namespace SolitareTest
             Assert.True(result);
             Assert.Contains(red7, gm.Tableaus[1].cards);
             Assert.DoesNotContain(red7, gm.Tableaus[0].cards);
+
+            /* This test verifies that a valid move from one tableau to another is successful. 
+             * It creates two tableaus, adds a red 7 to the source tableau and a black 8 to the target tableau, 
+             * and then attempts to move the red 7 onto the black 8. The test asserts that the move is successful, 
+             * that the red 7 is now in the target tableau, and that it has been removed from the source tableau.
+             */
         }
 
         [Fact]
@@ -62,6 +73,11 @@ namespace SolitareTest
 
             Assert.True(result);
             Assert.Contains(ace, f.cards);
+
+            /* This test verifies that a valid move of an Ace from a tableau to an empty foundation is successful. 
+            * It creates an Ace of clubs, adds it to the first tableau, and then attempts to move it to the foundation for clubs. 
+            * The test asserts that the move is successful and that the Ace is now in the foundation.
+            */
         }
 
         [Fact]
@@ -84,6 +100,13 @@ namespace SolitareTest
 
             Assert.True(result);
             Assert.Contains(two, f.cards);
+
+            /* 
+             * This test verifies that a valid move of the next rank card (2 of clubs) from a tableau to a foundation 
+             * that already has the previous rank card (Ace of clubs) is successful. 
+             * It creates an Ace and a 2 of clubs, adds the 2 to the first tableau, and adds the Ace to the foundation for clubs. 
+             * Then it attempts to move the 2 to the foundation and asserts that the move is successful and that the 2 is now in the foundation.
+             */
         }
 
         [Fact]
@@ -102,6 +125,13 @@ namespace SolitareTest
 
             Assert.True(result);
             Assert.Contains(red7, gm.Tableaus[0].cards);
+
+            /* 
+             * This test verifies that a valid move from the waste to a tableau is successful. 
+             * It creates a red 7 and a black 8, adds the red 7 to the waste and the black 8 to the first tableau, 
+             * and then attempts to move the red 7 onto the black 8. The test asserts that the move is successful 
+             * and that the red 7 is now in the tableau.
+             */
         }
 
         [Fact]
@@ -119,6 +149,12 @@ namespace SolitareTest
 
             Assert.True(result);
             Assert.Contains(ace, f.cards);
+
+            /* 
+             * This test verifies that a valid move from the waste to a foundation is successful. 
+             * It creates an Ace of clubs, adds it to the waste, and then attempts to move it to the foundation for clubs. 
+             * The test asserts that the move is successful and that the Ace is now in the foundation.
+             */
         }
     }
 }

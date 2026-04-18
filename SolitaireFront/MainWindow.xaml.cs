@@ -20,6 +20,8 @@ namespace SolitaireFront
 
             // Attach closing handler to reliably save on window X
             this.Closing += MainWindow_Closing;
+
+            // The MainWindow class is the main window of the Solitaire application.
         }
 
         private void MainWindow_Closing(object? sender, CancelEventArgs e)
@@ -53,6 +55,13 @@ namespace SolitaireFront
             {
                 Debug.WriteLine("MainWindow_Closing: Exception while saving player data: " + ex);
             }
+
+            /*
+             * The MainWindow_Closing method is an event handler that is called when the main window is closing. 
+             * It attempts to save the current player's data using the LoginManager. 
+             * If the player is not a guest, it increments their games played and games lost statistics before saving. 
+             * It also includes error handling to catch and log any exceptions that occur during the saving process.
+             */
         }
     }
 }

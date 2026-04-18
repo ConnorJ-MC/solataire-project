@@ -32,6 +32,12 @@ namespace SolitaireFront
             InitializeComponent();
             loginManager = LoginManager.Instance;
             loginManager.loadAllPlayersFromJSON();
+
+            /*
+             * The Login class is a WPF Page that serves as the login screen for the Solitaire game. 
+             * It interacts with the LoginManager to handle user authentication, age verification, and game settings such as difficulty and Vegas mode. 
+             * The class contains event handlers for various UI elements, such as buttons and checkboxes, to manage user input and update the UI accordingly.
+             */
         }
 
         private void ageValidate(object sender, RoutedEventArgs e)
@@ -43,6 +49,12 @@ namespace SolitaireFront
             isAdult = loginManager.AgeVertification(selectedDate);
 
             UpdateVegasUI();
+
+            /* 
+             * The ageValidate method is an event handler that is triggered when the user selects a date of birth. 
+             * It checks if the selected date is valid and then uses the LoginManager's AgeVertification method to determine if the user is an adult (18 years or older). 
+             * Based on the result, it updates the Vegas mode UI to enable or disable it accordingly.
+             */
         }
 
         private void isaGuest(object sender, RoutedEventArgs e)
@@ -50,6 +62,12 @@ namespace SolitaireFront
             guest = true;
             loginManager.setGuestMode(true);
             UpdateVegasUI();
+
+            /* 
+            * The isaGuest method is an event handler that is triggered when the user indicates that they want to play as a guest. 
+            * It sets the guest variable to true, updates the LoginManager to reflect that the user is in guest mode, 
+            * and then updates the Vegas mode UI to disable it since guests cannot access Vegas mode.
+            */
         }
 
         private void isNotaGuest(object sender, RoutedEventArgs e)
@@ -57,6 +75,12 @@ namespace SolitaireFront
             guest = false;
             loginManager.setGuestMode(false);
             UpdateVegasUI();
+
+            /* 
+             * The isNotaGuest method is an event handler that is triggered when the user indicates that they do not want to play as a guest. 
+             * It sets the guest variable to false, updates the LoginManager to reflect that the user is not in guest mode, 
+             * and then updates the Vegas mode UI to enable it if the user is an adult.
+             */
         }
 
         private String VegasTXT()
@@ -74,6 +98,12 @@ namespace SolitaireFront
             }
 
             return ": VEGAS MODE";
+
+            /* 
+            * The VegasTXT method returns a string that is used as the content for the Vegas mode checkbox. 
+            * It checks if the user is a guest or not an adult and returns a corresponding message to indicate why Vegas mode is disabled, 
+            * or simply returns "VEGAS MODE" if it is enabled.
+            */
         }
 
         private void UpdateVegasUI()
@@ -85,6 +115,12 @@ namespace SolitaireFront
                 cb_VegasMode.IsChecked = false;
                 loginManager.setVegasMode(false);
             }
+
+            /* 
+            * The UpdateVegasUI method updates the Vegas mode checkbox's content and enabled state based on the user's age and guest status. 
+            * If Vegas mode is currently checked but becomes disabled due to a change in user status, 
+            * it unchecks the box and updates the LoginManager to reflect that Vegas mode is no longer active.
+            */
         }
 
         private void VegasON(object sender, RoutedEventArgs e)
@@ -129,6 +165,12 @@ namespace SolitaireFront
             "How to play Solitaire",
             MessageBoxButton.OK,
             MessageBoxImage.Information);
+
+            /* 
+             * The howTo method is an event handler that displays a message box with instructions on how to play Solitaire,
+             * including the goal of the game, rules for moving cards, difficulty settings, and information about Vegas mode. 
+             * This provides players with the necessary information to understand how to play the game and what to expect from different settings.
+             */
         }
 
 
@@ -178,6 +220,15 @@ namespace SolitaireFront
             GameManager.Instance.StartGame();
 
             NavigationService.Navigate(new Page1(GameManager.Instance));
+
+            /* 
+            * The btn_Start_Click method is an event handler that is triggered when the user clicks the "Start" button. 
+            * It validates the user's input for first name, last name, date of birth, and difficulty selection. 
+            * If any required fields are missing or invalid, it shows a warning message and returns early. 
+            * If Vegas mode is selected, it displays a warning about gambling and provides a link to support resources. 
+            * If the user confirms they want to continue with Vegas mode, it proceeds to load the player's data, start the game, 
+            * and navigate to the main game page.
+            */
         }
 
         private void combo_Difficulty_DropDownClosed(object sender, EventArgs e)
@@ -200,6 +251,13 @@ namespace SolitaireFront
                 MessageBox.Show("Invalid difficulty selection.", "Invalid", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
+            /* 
+            * The combo_Difficulty_DropDownClosed method is an event handler that is triggered when the user closes the difficulty selection dropdown. 
+            * It determines the selected difficulty level based on the selected index or text of the ComboBox, 
+            * and then updates the LoginManager with the selected difficulty. 
+            * If the difficulty selection is invalid, it shows a warning message to the user.
+            */
         }
     }
 }

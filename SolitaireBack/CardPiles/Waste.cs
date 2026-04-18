@@ -12,27 +12,23 @@ namespace SolitaireBack.CardPiles
         {
         }
 
-        public Card topcard()
-        {
-            if (isEmpty())
-            {
-                return null;
-            }
-            return cards[cards.Count - 1];
-        }
-
         public List<Card> reset()
         {
             List<Card> cardsToReturn = new List<Card>(cards);
             cards.Clear();
             return cardsToReturn;
+
+            /*
+             * This is used to reset the waste pile back to the stock pile when the stock pile is empty.
+             * It returns a list of cards that should be moved back to the stock pile, and clears the waste pile.
+             */
         }
 
-        // Disallow arbitrary moves into the waste pile.
-        // The stock drawing logic should call waste.addStack(...) directly.
         public override bool canAccept(Card c)
         {
             return false;
+
+            // The waste pile cannot accept any cards, so this method always returns false.
         }
     }
 }

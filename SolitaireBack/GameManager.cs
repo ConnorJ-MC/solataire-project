@@ -23,12 +23,22 @@ namespace SolitaireBack
         private GameManager()
         {
             login = LoginManager.Instance;
+
+            /*
+             * The GameManager class is implemented as a singleton to ensure that there is only one instance of the game state throughout the application. 
+             * It manages the core components of the Solitaire game, including the deck, tableaus, foundations, stock, and waste piles. 
+             * The constructor initializes the login manager instance for handling player data and authentication.
+             */
         }
 
         public IReadOnlyList<Tableau> Tableaus => tableaus;
         public IReadOnlyList<Foundation> Foundations => foundations;
         public Stock Stock => stock;
         public Waste Waste => waste;
+        /*
+         * These properties provide read-only access to the game components,
+         * allowing other parts of the application (such as the UI) to interact with the game state without directly modifying it.
+         */
 
         public bool StartGame()
         {
@@ -55,6 +65,13 @@ namespace SolitaireBack
 
             movesTaken = 0;
             return deal();
+
+            /*
+             * The StartGame method initializes the game state for a new game. 
+             * If the player has chosen to gamble, it deducts 52 from their balance. 
+             * It then creates a new deck, initializes the tableaus, foundations, stock, and waste piles, and resets the move counter. 
+             * Finally, it calls the deal method to set up the initial card layout on the table.
+             */
         }
         public bool deal()
         {
@@ -74,6 +91,12 @@ namespace SolitaireBack
                 stock.addCard(deck.draw());
             }
             return true;
+
+            /*
+            * The deal method is responsible for distributing the cards from the deck to the tableaus and stock at the start of the game. 
+            * It uses nested loops to place the appropriate number of cards in each tableau, ensuring that only the top card of each tableau is face-up. 
+            * After dealing to the tableaus, it moves any remaining cards in the deck to the stock pile.
+            */
         }
 
         public bool TryMove(Card c, CardPile target)
@@ -116,6 +139,13 @@ namespace SolitaireBack
             applyVegasScoring(source, target);
             movesTaken++;
             return true;
+
+            /*
+            * The TryMove method attempts to move a card (and any cards stacked on top of it) from its current location to a target pile. 
+            * It first identifies the source pile containing the card, retrieves the stack of cards to be moved, and checks if the target pile can accept the move. 
+            * If all checks pass, it removes the stack from the source, ensures they are face-up, and adds them to the target pile. 
+            * It also handles flipping the new top card of the source pile if necessary and applies Vegas scoring rules if applicable.
+            */
         }
 
         private CardPile findPileContaining(Card c)
@@ -135,6 +165,12 @@ namespace SolitaireBack
             if (waste.contains(c)) return waste;
 
             return null;
+
+            /*
+             * The findPileContaining method searches through all the piles in the game (tableaus, 
+             * foundations, stock, and waste) to find which one contains the specified card. 
+             * It returns the pile if found, or null if the card is not present in any pile.
+             */
         }
 
         public bool applyVegasScoring(CardPile source, CardPile target)
@@ -149,6 +185,12 @@ namespace SolitaireBack
             }
 
             return false;
+
+            /*
+             * The applyVegasScoring method implements the scoring rules for Vegas mode. 
+             * If the player is gambling and moves a card from a non-foundation pile to a foundation, it adds 5 to their balance. 
+             * It returns true if scoring was applied, or false otherwise.
+             */
         }
         public bool winCheck()
         {
@@ -166,6 +208,13 @@ namespace SolitaireBack
             }
 
             return true;
+
+            /*
+             * The winCheck method verifies if the player has won the game by checking each foundation pile. 
+             * It ensures that each foundation contains exactly 13 cards, 
+             * and that those cards are in the correct order (Ace to King) and match the suit of the foundation. 
+             * If all foundations meet these conditions, it returns true, indicating a win; otherwise, it returns false.
+             */
         }
 
         public bool resetGame()
@@ -185,8 +234,13 @@ namespace SolitaireBack
             movesTaken = 0;
 
 
-            login.jsonSaved = false;
             return login.savePlayerData(login.currentPlayer);
+
+            /*
+            * The resetGame method is responsible for resetting the game state to start a new game. 
+            * If the player is not a guest, it updates their game statistics (games played, won, lost) based on the outcome of the current game. 
+            * It then clears all game components and resets the move counter. Finally, it saves the player's data to persist their updated statistics.
+            */
         }
 
         public bool drawFromStock()
@@ -203,6 +257,13 @@ namespace SolitaireBack
                 movesTaken++;
                 return waste.addStack(drawnCards);
             }
+
+            /*
+            * The drawFromStock method handles the action of drawing cards from the stock pile. 
+            * If the stock is empty, it attempts to recycle the waste back into the stock. 
+            * If the stock has cards, it draws a number of cards based on the selected difficulty level (at least one), 
+            * flips them face-up, increments the move counter, and adds them to the waste pile.
+            */
         }
 
         public bool stockRecycle()
@@ -214,6 +275,13 @@ namespace SolitaireBack
                 return stock.reset(cardsToReturn);
             }
             return false;
+
+            /*
+             * The stockRecycle method is responsible for recycling the waste pile back into the stock pile when the stock is empty. 
+             * It checks if the stock is empty and the waste is not empty, then retrieves the cards from the waste, 
+             * resets them in the stock, and returns true if successful. 
+             * If the conditions are not met or if there are no cards to return, it returns false.
+             */
         }
     }
 }

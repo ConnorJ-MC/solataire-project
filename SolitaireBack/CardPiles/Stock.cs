@@ -26,11 +26,17 @@ namespace SolitaireBack.CardPiles
                 drawnCards.Add(card);
             }
 
-            drawnCards.Reverse(); //reverse the order of the drawn cards so that the top card is at the end of the list
+            drawnCards.Reverse();
             return drawnCards;
+            
+            /* 
+             * will draw the specified ammount of cards from the stock, or as many as are left if there are less than the specified ammount. 
+             * The drawn cards will be returned in the order they were drawn, with the top card of the stock being the last card in the returned list. 
+             */
         }
+        
 
-        public bool reset(List<Card> newCards) //will reverse the order of the new cards and flip them all face down, then add them to the stock
+        public bool reset(List<Card> newCards)
         {
             if (newCards.Count == 0)
             {
@@ -43,7 +49,13 @@ namespace SolitaireBack.CardPiles
                 cards.Add(card);
             }
             return true;
-            
+
+            /*
+             * will reset the stock with the specified list of cards, which should be the cards that were previously drawn from the stock. 
+             * The cards will be added to the stock in the order they are in the list, with the first card in the list being the top card of the stock. 
+             * The cards will be flipped face down before being added to the stock. The method will return true if the stock was successfully reset, 
+             * or false if the provided list of cards was empty.
+             */
         }
     }
 }
