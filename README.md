@@ -97,7 +97,7 @@ You can launch the game using:
  **Known Issues / Limitations**
 
 - Drag‑and‑drop movement is not implemented (click‑to‑move only)
-- UI layout may vary slightly depending on screen resolution  
+- UI layout may off ir unfinished while full screen
 
 ---
 
