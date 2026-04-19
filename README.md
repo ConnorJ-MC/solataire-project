@@ -96,13 +96,12 @@ You can launch the game using:
 
  **Known Issues / Limitations**
 
-- Drag‑and‑drop movement is not implemented (click‑to‑move only)  
-- Hard mode is not included (not required by the scenario)  
+- Drag‑and‑drop movement is not implemented (click‑to‑move only)
 - UI layout may vary slightly depending on screen resolution  
 
 ---
 
- **Future Improvements (Based on UX Testing)**
+ **Possible Future Improvement**
 
 - Improve visibility of the Help button  
 - Add optional animations or sound effects  
