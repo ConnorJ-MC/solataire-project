@@ -56,13 +56,13 @@ Recommended:
 
  **Installation (ClickOnce)**
 
-1. Download the setup.exe file from the provided installation link.  
+1. Download the setup folder from the provided installation link.  
 2. Run the setup file (Windows may show a security prompt — choose Run).  
 3. ClickOnce will automatically download the full application and required dependencies.  
 4. When installation completes, the game will launch automatically.  
 5. A desktop shortcut and Start Menu entry will be created for future use.
 
-[Solitaire SetUp EXE.zip](https://github.com/user-attachments/files/26861085/Solitaire.SetUp.EXE.zip)
+[Solitaire SetUp.zip](https://github.com/user-attachments/files/26877716/Solitaire.SetUp.zip)
 
 ---
 
@@ -96,16 +96,19 @@ You can launch the game using:
 
  **Known Issues / Limitations**
 
-- Drag‑and‑drop movement is not implemented (click‑to‑move only)
-- UI layout may off ir unfinished while full screen
+- Drag‑and‑drop movement is not implemented (click‑to‑move only).
+- UI layout may appear slightly off or unfinished when the game is in full‑screen mode.
+- The Help button is functional but may be less noticeable for users with reduced vision, depending on screen size and accessibility needs.
 
 ---
 
- **Possible Future Improvement**
+ **Possible Future Improvements**
 
-- Improve visibility of the Help button  
-- Add optional animations or sound effects  
-- Add UI themes or customisation options  
+- Improve visibility or accessibility of the help button (e.g., larger icon, optional high‑contrast mode).
+- Add optional animations, sound effects, or subtle visual feedback for moves.
+- Add UI themes or customisation options (e.g., table colours, card backs).
+- Consider adding double‑click auto‑move for convenience.
+- Explore accessibility enhancements such as scalable UI elements or a larger‑text mode
 
 ---
 
